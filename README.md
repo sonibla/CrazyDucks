@@ -7,3 +7,7 @@ Metacello new
     repository: 'github://sonibla/CrazyDucks';
     load.
 ```
+
+```Smalltalk
+CrazyDucks playground
+```
