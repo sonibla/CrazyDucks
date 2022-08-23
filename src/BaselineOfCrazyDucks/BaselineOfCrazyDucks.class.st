@@ -10,7 +10,7 @@ BaselineOfCrazyDucks >> baseline: spec [
 	<baseline>
 	spec for: #common do: [ 
 		spec
-			package: 'CrazyDucks';
 			baseline: 'PharoJS'
-			with: [ spec repository: 'github://PharoJS/PharoJS:pharo9' ] ]
+			with: [ spec repository: 'github://PharoJS/PharoJS:pharo9' ];
+			package: 'CrazyDucks' ]
 ]
