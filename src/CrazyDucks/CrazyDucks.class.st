@@ -4,12 +4,6 @@ Class {
 	#category : #CrazyDucks
 }
 
-{ #category : #description }
-CrazyDucks class >> appJsSubFolder [
-	<pharoJsSkip>
-	^#js
-]
-
 { #category : #initialize }
 CrazyDucks >> initialize [
 	super initialize.
