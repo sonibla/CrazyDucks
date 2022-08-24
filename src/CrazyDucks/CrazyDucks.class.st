@@ -4,6 +4,12 @@ Class {
 	#category : #CrazyDucks
 }
 
+{ #category : #accessing }
+CrazyDucks >> device [
+
+	^ window melon js_at: #device
+]
+
 { #category : #initialize }
 CrazyDucks >> displayApp [
 
@@ -15,8 +21,8 @@ CrazyDucks >> displayApp [
 { #category : #initialize }
 CrazyDucks >> displayText [
 
-	(((window js_at: 'melon') js_at: 'game') js_at: 'world') addChild:
-		(((window js_at: 'melon') js_at: 'Text') new: 609 with: 281 with: { 
+	self world addChild:
+		((self melon js_at: 'Text') new: 609 with: 281 with: { 
 				 (#font -> 'Arial').
 				 (#size -> 160).
 				 (#fillStyle -> '#FFFFFF').
@@ -25,13 +31,19 @@ CrazyDucks >> displayText [
 				 (#text -> 'Hello World !') } asJsObject)
 ]
 
+{ #category : #accessing }
+CrazyDucks >> game [
+
+	^ self melon js_at: 'game'
+]
+
 { #category : #initialize }
 CrazyDucks >> initVideo [
 
 	"!melon.video.init(1218, 562, {parent : ""screen"", scale : ""auto""})"
 
 	| canvasSupported video |
-	video := (window js_at: 'melon') js_at: 'video'.
+	video := self melon js_at: 'video'.
 	canvasSupported := video js_init: 1218 height: 562 options: { 
 			                   (#parent -> 'screen').
 			                   (#scale -> 'auto') } asJsObject.
@@ -48,24 +60,29 @@ CrazyDucks >> initialize [
 ]
 
 { #category : #accessing }
-CrazyDucks >> melonJsRoot [
-	^ window melon
+CrazyDucks >> melon [
+
+	^ window js_at: 'melon'
 ]
 
 { #category : #initialize }
 CrazyDucks >> onReadyDo: aBlock [
 
-	(window melon js_at: #device) onReady: aBlock
+	self device onReady: aBlock
 ]
 
 { #category : #initialize }
 CrazyDucks >> setBackgroundColor [
 
 	| child colorLayerClass |
-	colorLayerClass := (window js_at: 'melon') js_at: 'ColorLayer'.
+	colorLayerClass := self melon js_at: 'ColorLayer'.
 
 	child := colorLayerClass new: 'background' with: '#202020'.
+	self world addChild: child
+]
 
-	(((window js_at: 'melon') js_at: 'game') js_at: 'world') addChild:
-		child
+{ #category : #accessing }
+CrazyDucks >> world [
+
+	^ self game js_at: 'world'
 ]
