@@ -15,20 +15,37 @@ CrazyDucks >> displayApp [
 
 	self initVideo.
 	self setBackgroundColor.
-	self displayText
+	self loader js_at: #crossOrigin put: 'anonymous'.
+	
+	self displayText.
+	self loader preload: { { 
+			                   (#name -> 'duck').
+			                   (#type -> 'image').
+			                   (#src -> 'https://cdn131.picsart.com/274037682011211.png?to=crop&type=webp&r=80x100&q=85')  } asJsObject } onLoad: [ self displayImage ] switchToLoadState: false.
+]
+
+{ #category : #initialize }
+CrazyDucks >> displayImage [
+
+	self world addChild:
+		((self melon js_at: 'Sprite') new: 300 with: 300 with: { 
+				 (#image -> 'duck').
+				 (#spritewidth -> 120).
+				 (#spriteheight -> 120) } asJsObject)
 ]
 
 { #category : #initialize }
 CrazyDucks >> displayText [
 
 	self world addChild:
-		((self melon js_at: 'Text') new: 609 with: 281 with: { 
+		((self melon js_at: 'Text') new: 509 with: 181 with: { 
 				 (#font -> 'Arial').
-				 (#size -> 160).
+				 (#size -> 90).
 				 (#fillStyle -> '#FFFFFF').
 				 (#textBaseline -> 'middle').
 				 (#textAlign -> 'center').
-				 (#text -> 'Hello World !') } asJsObject)
+				 (#text -> 'Hello World !') } asJsObject).
+	
 ]
 
 { #category : #accessing }
@@ -57,6 +74,12 @@ CrazyDucks >> initialize [
 
 	super initialize.
 	self onReadyDo: [ self displayApp ]
+]
+
+{ #category : #accessing }
+CrazyDucks >> loader [
+
+	^ self melon js_at: 'loader'
 ]
 
 { #category : #accessing }
